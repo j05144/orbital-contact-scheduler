@@ -1,6 +1,7 @@
 STATIONS = [
-    {"name": "Svalbard", "lat": 78.229, "lon": 15.407, "elevation_m": 458},
-    {"name": "Kiruna",   "lat": 67.857, "lon": 20.964, "elevation_m": 391},
+    {"name": "Svalbard", "lat":  78.229, "lon":   15.407, "elevation_m": 458},
+    {"name": "Kiruna",   "lat":  67.857, "lon":   20.964, "elevation_m": 391},
+    {"name": "Hawaii",   "lat":  19.014, "lon": -155.663, "elevation_m": 1180},
 ]
 
 SATELLITE_PRIORITY = {
