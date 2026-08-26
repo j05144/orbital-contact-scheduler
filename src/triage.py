@@ -36,15 +36,19 @@ _VALID_ACTIONS = {"ACCEPT", "OVERRIDE", "ESCALATE"}
 
 def _row_context(row: "pd.Series") -> str:
     """Format a single dropped-pass row as a compact context string."""
-    alt_info: str
-    if row.get("has_alternative") is True or str(row.get("has_alternative")).lower() == "true":
-        alt_info = (
-            f"alternative pass available at {row.get('alt_station', 'unknown')} "
-            f"starting {row.get('alt_start_utc', 'unknown')} "
-            f"(delay {row.get('delay_min', '?')} min)"
+    has_alt = row.get("has_alternative") is True or str(row.get("has_alternative")).lower() == "true"
+    if not has_alt:
+        alt_verdict = "ALTERNATIVE: none available in the planning window."
+    elif int(row.get("delay_min", 0)) <= 120:
+        alt_verdict = (
+            f"ALTERNATIVE: {row.get('alt_station')} in "
+            f"{row.get('delay_min')} minutes. This is an acceptable substitute."
         )
     else:
-        alt_info = "no alternative pass available in the scheduling window"
+        alt_verdict = (
+            f"ALTERNATIVE: {row.get('alt_station')} in "
+            f"{row.get('delay_min')} minutes. This is a significant delay."
+        )
 
     return (
         f"Satellite: {row['satellite']} (priority {row['priority']})\n"
@@ -52,25 +56,49 @@ def _row_context(row: "pd.Series") -> str:
         f"Scheduled start: {row['earliest_start_utc']}\n"
         f"Candidate stations: {row.get('candidate_stations', 'unknown')}\n"
         f"Blocked by: {row.get('blocked_by', 'unknown')}\n"
-        f"Alternative: {alt_info}"
+        f"{alt_verdict}"
+    )
+
+
+def decide_action(row: "pd.Series") -> tuple[str, str]:
+    """Return (action, reason) determined entirely in Python."""
+    has_alt = row.get("has_alternative") is True or str(row.get("has_alternative")).lower() == "true"
+    p = int(row.get("priority", 3))
+    if not has_alt:
+        if p in (1, 2):
+            return (
+                "OVERRIDE",
+                f"No alternative contact in the planning window for a priority {p} satellite.",
+            )
+        else:
+            return (
+                "ESCALATE",
+                "No alternative contact available; routine priority, needs operator review.",
+            )
+    delay = int(row.get("delay_min", 0))
+    alt_station = row.get("alt_station", "unknown")
+    if delay > 120:
+        return (
+            "ESCALATE",
+            f"Next opportunity is {delay} minutes away at {alt_station}, a significant delay.",
+        )
+    return (
+        "ACCEPT",
+        f"Recovered at {alt_station} after {delay} minutes, an acceptable substitute.",
     )
 
 
 def _build_prompt(row: "pd.Series") -> str:
-    """Build the per-pass prompt sent to Granite."""
+    """Build the per-pass prompt sent to Granite (explanation only)."""
     return (
         "You are a satellite mission operations assistant. "
         "A ground contact pass was dropped from the schedule. "
         "Respond with ONLY a valid JSON object — no markdown, no extra text.\n\n"
         f"{_row_context(row)}\n\n"
         'Return exactly this JSON structure:\n'
-        '{"explanation": "<one sentence why this was dropped and mission impact>", '
-        '"action": "<ACCEPT|OVERRIDE|ESCALATE>", '
-        '"reason": "<one short sentence justifying the action>"}\n\n'
-        "Rules:\n"
-        "- ACCEPT if the drop is routine and the alternative is adequate.\n"
-        "- OVERRIDE if this specific pass should be manually forced into the schedule.\n"
-        "- ESCALATE if mission risk is high and a human decision-maker must be notified.\n"
+        '{"explanation": "<one sentence stating why this pass was dropped and which satellite occupied the antenna>"}\n\n'
+        "Do not mention alternatives, delays, recommendations, or actions. "
+        "Do not use the word 'interference'; the correct term is that another satellite occupied the antenna.\n"
         "Respond with JSON only."
     )
 
@@ -145,35 +173,25 @@ def _triage_row(
 
     Retries once on bad JSON, then falls back to a templated response.
     """
+    action, reason = decide_action(row)
     prompt = _build_prompt(row)
 
     for attempt in range(2):
         try:
             raw  = _call_granite(prompt, host=host)
             data = _parse_json_response(raw)
-            # Validate action field.
-            action = str(data.get("action", "")).strip().upper()
-            if action not in _VALID_ACTIONS:
-                action = "ESCALATE"
             return {
                 "pass_id":     str(row["pass_id"]),
                 "satellite":   str(row["satellite"]),
                 "priority":    int(row["priority"]),
                 "explanation": str(data.get("explanation", "")).strip(),
                 "action":      action,
-                "reason":      str(data.get("reason", "")).strip(),
+                "reason":      reason,
             }
         except (ValueError, KeyError, Exception) as exc:  # noqa: BLE001
             if attempt == 0:
                 continue  # retry once
             # Fallback template after two failures.
-            has_alt = str(row.get("has_alternative", "")).lower() == "true"
-            alt_text = (
-                f"An alternative at {row.get('alt_station')} with "
-                f"{row.get('delay_min')} min delay is available."
-                if has_alt
-                else "No alternative pass is available."
-            )
             return {
                 "pass_id":     str(row["pass_id"]),
                 "satellite":   str(row["satellite"]),
@@ -181,11 +199,10 @@ def _triage_row(
                 "explanation": (
                     f"{row['satellite']} (priority {row['priority']}) pass "
                     f"{row['pass_id']} was dropped because {row.get('blocked_by', 'another satellite')} "
-                    f"occupied the antenna at {row.get('candidate_stations', 'all candidate stations')}. "
-                    f"{alt_text}"
+                    f"occupied the antenna at {row.get('candidate_stations', 'all candidate stations')}."
                 ),
-                "action":  "ESCALATE",
-                "reason":  f"LLM unavailable (fallback template); manual review required. ({exc})",
+                "action":  action,
+                "reason":  f"{reason} (LLM unavailable: {exc})",
             }
 
     # Unreachable, but satisfies type checker.
@@ -229,7 +246,7 @@ def select_top(dropped_df: pd.DataFrame, n: int = _TOP_N) -> pd.DataFrame:
     df["_delay_sort"] = df["delay_min"].fillna(0)
     df = df.sort_values(
         ["priority", "_alt_rank", "_delay_sort"],
-        ascending=[True, False, False],
+        ascending=[True, True, False],
     ).head(n)
     df = df.drop(columns=["_alt_rank", "_delay_sort"])
     return df
