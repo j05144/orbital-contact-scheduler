@@ -105,19 +105,31 @@ def _build_prompt(row: "pd.Series") -> str:
 
 def _build_summary_prompt(stats: dict[str, Any]) -> str:
     """Build the aggregate summary prompt."""
+    p1_dropped = stats['p1_total'] - stats['p1_scheduled']
+    median_str = (
+        f"the median wait for those is {stats['median_delay']} minutes"
+        if stats['median_delay'] is not None
+        else "no median delay is available"
+    )
     return (
         "You are a satellite mission operations assistant. "
         "Write a single paragraph (3-5 sentences) summarising the scheduling run "
         "for an operator. Be direct and factual. No bullet points, no headers.\n\n"
-        f"Statistics:\n"
-        f"- Total passes: {stats['total']}\n"
-        f"- Scheduled: {stats['scheduled']} ({stats['sched_pct']:.1f}%)\n"
-        f"- Dropped: {stats['dropped']} ({stats['drop_pct']:.1f}%)\n"
-        f"- Priority-1 passes scheduled: {stats['p1_scheduled']}/{stats['p1_total']} "
-        f"({stats['p1_pct']:.1f}%)\n"
-        f"- Dropped passes with an alternative: {stats['with_alt']}\n"
-        f"- Dropped passes with no alternative: {stats['without_alt']}\n"
-        f"- Median delay to alternative (min): {stats['median_delay']}\n\n"
+        f"This scheduling run covered {stats['total']} passes in total. "
+        f"{stats['scheduled']} passes were successfully scheduled and {stats['dropped']} were dropped. "
+        f"All {stats['p1_total']} priority-1 passes were successfully scheduled. "
+        f"Zero priority-1 passes were dropped. "
+        if p1_dropped == 0 else
+        f"This scheduling run covered {stats['total']} passes in total. "
+        f"{stats['scheduled']} passes were successfully scheduled and {stats['dropped']} were dropped. "
+        f"{stats['p1_scheduled']} of {stats['p1_total']} priority-1 passes were scheduled and "
+        f"{p1_dropped} priority-1 {'pass was' if p1_dropped == 1 else 'passes were'} dropped. "
+    ) + (
+        f"Of the {stats['dropped']} dropped passes, {stats['with_alt']} have an alternative contact "
+        f"later in the window; {median_str}. "
+        f"The remaining {stats['without_alt']} dropped passes have no alternative at all within the planning window.\n\n"
+        "Restate these facts. Do not compute new numbers, do not reassign a number to a different category, "
+        "and do not add figures that are not listed above.\n"
         "Write the paragraph now:"
     )
 

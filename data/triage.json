@@ -1,6 +1,6 @@
 {
-  "summary": "During the scheduling run, a total of 1281 passes were observed, with 289 (22.6%) being scheduled. A significant number, 992 (77.4%), were dropped, with 60 of these being priority-1 passes. Among the dropped passes, 694 had alternatives, while 298 did not. The median delay to an alternative for those without one was 383.6 minutes. This indicates a high drop rate, with a substantial number of priority-passes also being missed, and a considerable portion of these drops lacking timely alternatives.",
-  "generated_at": "2026-08-26T06:21:05Z",
+  "summary": "During this scheduling run, a total of 1281 passes were considered, with 289 successfully scheduled and 992 dropped. All 60 priority-1 passes were secured, while no priority-1 passes were discarded. Among the 992 dropped passes, 694 have potential alternatives later in the window, with a median wait time of 383.6 minutes. The remaining 298 dropped passes lack any viable alternatives within the planning window.",
+  "generated_at": "2026-08-26T06:30:24Z",
   "model": "granite3.3:2b",
   "items": [
     {
@@ -55,7 +55,7 @@
       "pass_id": "SUOMI NPP-023",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-023 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "explanation": "SUOMI NPP pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
       "reason": "Recovered at Hawaii after 102 minutes, an acceptable substitute."
     },
@@ -63,7 +63,7 @@
       "pass_id": "SUOMI NPP-012",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-012 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna at the scheduled start time.",
+      "explanation": "SUOMI NPP-012 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
       "reason": "Recovered at Svalbard after 100 minutes, an acceptable substitute."
     },
