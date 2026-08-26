@@ -1,0 +1,127 @@
+{
+  "summary": "During the scheduling run, a total of 1281 passes were observed, with 289 (22.6%) scheduled for execution. Regrettably, 992 (77.4%) passes were dropped, with 694 of these drops offering alternatives, ensuring minimal disruption. Priority-1 passes were fully scheduled, with 60 such passes (100.0%) confirmed. The median delay for alternative passes was 383.6 minutes, indicating a robust contingency plan in place for unscheduled events.",
+  "generated_at": "2026-08-26T05:45:47Z",
+  "model": "granite3.3:2b",
+  "items": [
+    {
+      "pass_id": "SUOMI NPP-031",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "The SUOMI NPP-031 pass was dropped due to a NOAA 20 (JPSS-1) scheduling conflict, which left no alternative pass available in the scheduling window.",
+      "action": "OVERRIDE",
+      "reason": "High priority satellite pass was dropped due to a scheduling conflict with a critical operational satellite."
+    },
+    {
+      "pass_id": "SUOMI NPP-005",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-005 pass was dropped due to NOAA 20 (JPSS-1) blocking the scheduled time, impacting mission data collection.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Svalbard starting 2026-08-26T16:49:52Z with minimal delay."
+    },
+    {
+      "pass_id": "SUOMI NPP-006",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-006 pass was dropped due to METOP-C interference, causing a delay of 313.7 minutes. An alternative pass is available at Svalbard starting at the same time.",
+      "action": "ACCEPT",
+      "reason": "Routine schedule adjustment due to METOP-C interference"
+    },
+    {
+      "pass_id": "SUOMI NPP-007",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "The ground contact pass for SUOMI NPP-007 was dropped due to a NOAA 20 (JPSS-1) conflict, causing a delay of 287.5 minutes.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Svalbard, compensating for the blocked pass."
+    },
+    {
+      "pass_id": "SUOMI NPP-008",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-008 pass was dropped due to NOAA 20 (JPSS-1) blocking the scheduled time, causing a delay of 210.6 minutes.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Svalbard starting 2026-08-26T16:49:52Z"
+    },
+    {
+      "pass_id": "SUOMI NPP-009",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "The ground contact pass for SUOMI NPP-009 was dropped due to a conflict with NOAA 20 (JPSS-1) pass, which blocked the scheduled start time. This is a routine situation and an alternative pass is available at Svalbard starting 105.2 minutes later.",
+      "action": "ACCEPT",
+      "reason": "Routine conflict with NOAA 20 (JPSS-1), alternative pass available"
+    },
+    {
+      "pass_id": "SUOMI NPP-026",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "The ground contact pass for SUOMI NPP-026 was dropped due to a NOAA 20 (JPSS-1) conflict, causing a delay of 104.6 minutes.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Svalbard, ensuring mission continuity despite the conflict."
+    },
+    {
+      "pass_id": "SUOMI NPP-023",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-023 pass was dropped due to NOAA 20 (JPSS-1) scheduling conflict, impacting data coverage.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Hawaii starting 2026-08-27T13:26:34Z (delay 102.8 min)"
+    },
+    {
+      "pass_id": "SUOMI NPP-012",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-012 pass was dropped due to NOAA 20 (JPSS-1) blocking the scheduled time, causing a delay of 100.8 minutes.",
+      "action": "OVERRIDE",
+      "reason": "Alternative pass available at Svalbard starting 2026-08-26T23:37:02Z"
+    },
+    {
+      "pass_id": "SUOMI NPP-028",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "The ground contact pass for SUOMI NPP-028 was dropped due to a NOAA 20 (JPSS-1) conflict, causing a delay of 100.8 minutes. This alternative pass at Svalbard is available to accommodate the satellite's needs.",
+      "action": "ACCEPT",
+      "reason": "Routine drop due to NOAA 20 conflict, alternative pass at Svalbard is adequate."
+    },
+    {
+      "pass_id": "METOP-C-011",
+      "satellite": "METOP-C",
+      "priority": 2,
+      "explanation": "METOP-B priority collision detected, causing METOP-C pass drop.",
+      "action": "OVERRIDE",
+      "reason": "Manual override for critical data collection"
+    },
+    {
+      "pass_id": "METOP-C-027",
+      "satellite": "METOP-C",
+      "priority": 2,
+      "explanation": "METOP-B priority collision prevented METOP-C-027 pass,",
+      "action": "OVERRIDE",
+      "reason": "alternative pass available at Kiruna"
+    },
+    {
+      "pass_id": "SUOMI NPP-024",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP-024 pass was dropped due to NOAA 20 (JPSS-1) blocking, causing a delay of 26.9 minutes. Mission impact: minimal as alternative pass available at Hawaii.",
+      "action": "ACCEPT",
+      "reason": "Alternative pass available, mitigating the impact of the dropped pass."
+    },
+    {
+      "pass_id": "METOP-C-002",
+      "satellite": "METOP-C",
+      "priority": 2,
+      "explanation": "METOP-B's ground contact pass was prioritized over METOP-C-002, actioned by human decision-maker.",
+      "action": "OVERRIDE",
+      "reason": "High priority ground contact pass for METOP-B"
+    },
+    {
+      "pass_id": "METOP-C-017",
+      "satellite": "METOP-C",
+      "priority": 2,
+      "explanation": "METOP-B priority interference, causing METOP-C pass drop.",
+      "action": "OVERRIDE",
+      "reason": "Manual override for critical data collection"
+    }
+  ]
+}
