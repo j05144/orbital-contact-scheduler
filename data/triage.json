@@ -1,23 +1,31 @@
 {
-  "summary": "During this scheduling run, a total of 1281 passes were considered, with 289 successfully scheduled and 992 dropped. All 60 priority-1 passes were secured, while no priority-1 passes were discarded. Among the 992 dropped passes, 694 have potential alternatives later in the window, with a median wait time of 383.6 minutes. The remaining 298 dropped passes lack any viable alternatives within the planning window.",
-  "generated_at": "2026-08-26T06:30:24Z",
+  "summary": "In this scheduling run, a total of 1267 passes were evaluated. Out of these, 280 were successfully scheduled, while 987 were not. Among the scheduled passes, 63 of the 65 priority-1 passes were allocated, and 2 were dropped. The 987 dropped passes can be categorized into two groups: 688 of these had alternative contacts later in the window, with a median wait time of 464.9 minutes, and the remaining 299 had no alternative within the planning window.",
+  "generated_at": "2026-08-28T01:47:51Z",
   "model": "granite3.3:2b",
   "items": [
     {
-      "pass_id": "SUOMI NPP-005",
-      "satellite": "SUOMI NPP",
-      "priority": 2,
-      "explanation": "SUOMI NPP-005 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
-      "action": "ESCALATE",
-      "reason": "Next opportunity is 414 minutes away at Svalbard, a significant delay."
+      "pass_id": "METOP-B-031",
+      "satellite": "METOP-B",
+      "priority": 1,
+      "explanation": "METOP-B-031 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "action": "OVERRIDE",
+      "reason": "No alternative contact in the planning window for a priority 1 satellite."
+    },
+    {
+      "pass_id": "METOP-B-032",
+      "satellite": "METOP-B",
+      "priority": 1,
+      "explanation": "METOP-B-032 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "action": "OVERRIDE",
+      "reason": "No alternative contact in the planning window for a priority 1 satellite."
     },
     {
       "pass_id": "SUOMI NPP-006",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-006 pass was dropped due to METOP-C occupying the antenna.",
+      "explanation": "SUOMI NPP-006 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ESCALATE",
-      "reason": "Next opportunity is 313 minutes away at Svalbard, a significant delay."
+      "reason": "Next opportunity is 284 minutes away at Svalbard, a significant delay."
     },
     {
       "pass_id": "SUOMI NPP-007",
@@ -25,7 +33,7 @@
       "priority": 2,
       "explanation": "SUOMI NPP-007 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ESCALATE",
-      "reason": "Next opportunity is 287 minutes away at Svalbard, a significant delay."
+      "reason": "Next opportunity is 209 minutes away at Svalbard, a significant delay."
     },
     {
       "pass_id": "SUOMI NPP-008",
@@ -33,23 +41,15 @@
       "priority": 2,
       "explanation": "SUOMI NPP-008 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ESCALATE",
-      "reason": "Next opportunity is 210 minutes away at Svalbard, a significant delay."
+      "reason": "Next opportunity is 183 minutes away at Svalbard, a significant delay."
     },
     {
-      "pass_id": "SUOMI NPP-009",
+      "pass_id": "SUOMI NPP-022",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-009 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
-      "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 105 minutes, an acceptable substitute."
-    },
-    {
-      "pass_id": "SUOMI NPP-026",
-      "satellite": "SUOMI NPP",
-      "priority": 2,
-      "explanation": "SUOMI NPP-026 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
-      "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 104 minutes, an acceptable substitute."
+      "explanation": "SUOMI NPP-022 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "action": "ESCALATE",
+      "reason": "Next opportunity is 178 minutes away at Kiruna, a significant delay."
     },
     {
       "pass_id": "SUOMI NPP-023",
@@ -57,31 +57,47 @@
       "priority": 2,
       "explanation": "SUOMI NPP pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Hawaii after 102 minutes, an acceptable substitute."
+      "reason": "Recovered at Kiruna after 105 minutes, an acceptable substitute."
     },
     {
-      "pass_id": "SUOMI NPP-012",
+      "pass_id": "SUOMI NPP-009",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-012 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "explanation": "SUOMI NPP-009 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 100 minutes, an acceptable substitute."
+      "reason": "Recovered at Svalbard after 104 minutes, an acceptable substitute."
     },
     {
-      "pass_id": "SUOMI NPP-028",
+      "pass_id": "SUOMI NPP-011",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-028 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "explanation": "SUOMI NPP-011 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna at the scheduled time.",
       "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 100 minutes, an acceptable substitute."
+      "reason": "Recovered at Kiruna after 104 minutes, an acceptable substitute."
+    },
+    {
+      "pass_id": "METOP-C-029",
+      "satellite": "METOP-C",
+      "priority": 2,
+      "explanation": "METOP-C-029 pass was dropped due to interference from METOP-B, occupying the antenna.",
+      "action": "ACCEPT",
+      "reason": "Recovered at Svalbard after 79 minutes, an acceptable substitute."
+    },
+    {
+      "pass_id": "SUOMI NPP-024",
+      "satellite": "SUOMI NPP",
+      "priority": 2,
+      "explanation": "SUOMI NPP pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "action": "ACCEPT",
+      "reason": "Recovered at Kiruna after 79 minutes, an acceptable substitute."
     },
     {
       "pass_id": "METOP-C-011",
       "satellite": "METOP-C",
       "priority": 2,
-      "explanation": "METOP-C-011 pass was dropped due to interference from METOP-B",
+      "explanation": "METOP-C-011 pass was dropped due to interference from METOP-B, which occupied the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Kiruna after 77 minutes, an acceptable substitute."
+      "reason": "Recovered at Kiruna after 75 minutes, an acceptable substitute."
     },
     {
       "pass_id": "METOP-C-027",
@@ -89,39 +105,23 @@
       "priority": 2,
       "explanation": "METOP-C-027 pass was dropped due to interference from METOP-B, which occupied the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Kiruna after 76 minutes, an acceptable substitute."
+      "reason": "Recovered at Kiruna after 73 minutes, an acceptable substitute."
     },
     {
-      "pass_id": "SUOMI NPP-024",
+      "pass_id": "SUOMI NPP-012",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP-024 pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "explanation": "SUOMI NPP pass was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Hawaii after 26 minutes, an acceptable substitute."
+      "reason": "Recovered at Kiruna after 24 minutes, an acceptable substitute."
     },
     {
-      "pass_id": "METOP-C-002",
-      "satellite": "METOP-C",
-      "priority": 2,
-      "explanation": "METOP-C-002 pass was dropped due to interference from METOP-B, which was occupying the antenna.",
-      "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 23 minutes, an acceptable substitute."
-    },
-    {
-      "pass_id": "METOP-C-017",
-      "satellite": "METOP-C",
-      "priority": 2,
-      "explanation": "The pass METOP-C-017 was dropped due to interference from METOP-B, which was occupying the antenna.",
-      "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 23 minutes, an acceptable substitute."
-    },
-    {
-      "pass_id": "SUOMI NPP-013",
+      "pass_id": "SUOMI NPP-029",
       "satellite": "SUOMI NPP",
       "priority": 2,
-      "explanation": "SUOMI NPP pass SUOMI NPP-013 was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
+      "explanation": "SUOMI NPP pass SUOMI NPP-029 was dropped due to NOAA 20 (JPSS-1) occupying the antenna.",
       "action": "ACCEPT",
-      "reason": "Recovered at Svalbard after 23 minutes, an acceptable substitute."
+      "reason": "Recovered at Svalbard after 24 minutes, an acceptable substitute."
     }
   ]
 }
