@@ -1,29 +1,30 @@
 # orbital-contact-scheduler
 
-A satellite ground-station contact scheduler for polar-orbiting weather
-satellites. Given a set of TLE elements and three ground stations, it
-computes every satellite visibility window across a 48-hour planning
-horizon, books antenna time by mission priority, and reports what was
-dropped and when each dropped contact can next be attempted.
+The satellite ground station contacts scheduling system is for polar
+orbiting meteorological satellites. Given the TLE elements and three
+ground stations, it finds all the visibility windows for the satellites
+within a 48 hour window period, schedules antenna usage by order of
+importance of missions, and informs about dropped windows and their
+next attempt times.
 
 ---
 
 ## Problem statement
 
-Operating a small ground-station network against a fleet of weather
-satellites is a resource allocation problem with hard constraints.
-Each station has one antenna. Satellites overfly a station for roughly
-4–12 minutes; two satellites cannot be served at the same station
-simultaneously, and the antenna requires a 15-minute turnaround between
-consecutive contacts.
+A small network of ground stations versus a constellation of weather
+satellites is a constrained resource assignment task. Each ground station
+has only one antenna, satellites spend about 4-12 minutes over a station,
+it’s impossible to serve two satellites simultaneously at the same
+station, and the turnaround time for the antenna is 15 minutes between
+contacts.
 
-With three stations and roughly 30 polar-orbiting satellites plus the ISS
-passing overhead continuously, antenna time is scarce. The planner must
-decide — before any pass begins — which contacts to keep and which to
-drop, honouring mission priority throughout. Once the schedule is fixed,
-operators need to know which dropped contacts are recoverable and which
-are not, and for the most significant losses they need enough context to
-act quickly.
+Given three ground stations and about 30 polar orbiting satellites
+plus ISS flying overhead all the time, antenna time is very limited.
+The scheduler needs to decide in advance which contacts to keep
+and which to drop, taking into account the priority of the mission.
+Once the contact plan is decided, operators must know which contacts
+were dropped and can be recovered and which were lost forever, and
+know how to react quickly in case of critical losses. The shape of this problem is not specific to satellites. Fixed capacity, more demand than the capacity can absorb, and a rule for deciding who waits describes crews against shifts, trucks against loading docks, and beds against patients just as well as antennas against passes.
 
 ---
 
@@ -184,34 +185,35 @@ handles narration only.
 
 **August — Advance Space Exploration with AI**
 
-The project demonstrates an AI-assisted operations workflow for satellite
-mission control. The deterministic scheduler handles the time-critical
-resource allocation; the language model reduces the operator's reading
-burden by converting structured drop records into plain-language
-explanations and a concise run summary, without being in the critical
+This is an example of the usage of AI in the process of satellite
+mission control. It uses a deterministic scheduler for time-sensitive
+resource management and a language model to relieve the operator from
+the need to read the drop record structure and to summarize the
+operations performed — without the model being in the critical
 decision path.
 
 ---
 
 ## How IBM Bob was used
 
-Bob was the primary development environment for this project.
+Bob was the main development tool used on this project.
 
-**Frontend (`app/main.py`).** The Streamlit dashboard was generated in
-Bob from a written data contract — the exact column names, types, and
-JSON shape of the three files in `data/` — rather than from the source
-of the engine that produces them. Bob produced the full 280-line
-dashboard in one pass: the metrics row, the triage card layout with
-colour-coded action badges, the Plotly `px.timeline` Gantt, and the
-filtered dropped-contacts table. Building against the contract rather
-than the implementation is what let the frontend and the engine be
-developed in parallel without either blocking the other.
+**Frontend (`app/main.py`).** The Streamlit interface was generated in
+Bob from a specification of the data contract — the column names, types,
+and JSON schema of the three files in `data/` — not from the source of
+the engine that produced them. Bob outputted the complete 280 line-long
+dashboard with a single pass: the metrics row, the layout of the triage
+card row and its action badge colours, the Plotly `px.timeline` Gantt
+chart, and the filtered dropped contacts table. Specifying against the
+contract not against the implementation was how we were able to develop
+the frontend and the engine in parallel, not blocking each other's
+progress.
 
 **Documentation.** Bob wrote this README from a structured
-specification, reading `docs/DESIGN_NOTES.md` and `src/` directly. When
-asked which fields in `triage.json` are model-generated versus computed
-in Python, Bob read `src/triage.py` and reported the split — which
-corrected an inaccurate description of the AI layer before it reached
+specification, reading `docs/DESIGN_NOTES.md` and `src/`. On being asked
+which fields in `triage.json` are generated by the models and which by
+Python code, Bob looked into `src/triage.py` and provided the split —
+correcting an inaccurate description of the AI layer before it reached
 this document.
 
 **Backend (`src/`).** [Jenna to complete.]
@@ -222,13 +224,22 @@ this document.
 
 | Metric | Value |
 |---|---|
-| Total passes considered | 1,281 |
-| Scheduled | 289 (22.6%) |
-| Dropped | 992 (77.4%) |
-| Priority-1 passes scheduled | 60 / 60 (100%) |
-| Dropped passes with an alternative | 694 |
-| Median wait for alternatives | 383.6 minutes |
-| Dropped passes with no alternative | 298 |
+| Total passes considered | 1,267 |
+| Scheduled | 280 (22.1%) |
+| Dropped | 987 (77.9%) |
+| Priority-1 passes scheduled | 63 / 65 |
+| Dropped passes with an alternative | 688 |
+| Median wait for alternatives | 464.9 minutes |
+| Dropped passes with no alternative | 299 |
+
+The scheduler's priority ordering ensures that lower-priority passes do not
+displace priority-1 passes; however, in the case of two priority-1 satellites,
+there may be competition for the same antenna. In the case of this run,
+both METOP-B-031 and METOP-B-032 are prevented from accessing the antenna
+by NOAA 20 (JPSS-1), which is also priority 1. This competition takes place
+in the last part of the 48-hour planning window, hence there is no other
+option and the pass gets dropped with `decide_action` giving it the action
+value of OVERRIDE. Both appear as the top two items in the triage panel.
 
 ---
 

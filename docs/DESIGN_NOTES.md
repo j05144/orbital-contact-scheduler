@@ -16,17 +16,22 @@
 
 | Metric | Count | Share |
 |---|---|---|
-| Total passes | 1 281 | 100% |
-| Scheduled | 289 | 22.6% |
-| Dropped | 992 | 77.4% |
-| Priority-1 passes scheduled | 60 / 60 | 100% |
+| Total passes | 1 267 | 100% |
+| Scheduled | 280 | 22.1% |
+| Dropped | 987 | 77.9% |
+| Priority-1 passes scheduled | 63 / 65 | 96.9% |
 
 ### Dropped-pass breakdown
 
-Of the 992 dropped passes:
+Of the 987 dropped passes:
 
-- **694** have an alternative contact later in the window — median wait **383.6 minutes**.
-- **298** have no alternative at all within the 48-hour window.
+- **688** have an alternative contact later in the window — median wait **464.9 minutes**.
+- **299** have no alternative at all within the 48-hour window.
+
+The two dropped priority-1 passes (METOP-B-031 and METOP-B-032) were
+blocked by NOAA 20 (JPSS-1), also priority 1. Both fall near the end of
+the 48-hour window with no alternative inside the planning horizon.
+They appear as OVERRIDE items at the top of the triage output.
 
 ### Granite triage
 
