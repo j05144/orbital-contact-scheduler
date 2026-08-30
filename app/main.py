@@ -51,7 +51,7 @@ def check_data_files() -> None:
 # Page config
 # ---------------------------------------------------------------------------
 st.set_page_config(
-    page_title="Orbital Contact Scheduler",
+    page_title="OrbitCall",
     layout="wide",
 )
 
@@ -261,7 +261,7 @@ st.markdown(
     f'<div style="display:flex;align-items:center;gap:14px;">'
     f'{SVG_MARK}'
     f'<span style="font-family:\'Public Sans\',sans-serif;font-weight:300;font-size:38px;'
-    f'color:#17191a;line-height:1.1;letter-spacing:0;">Orbital contact scheduler</span>'
+    f'color:#17191a;line-height:1.1;letter-spacing:0;">OrbitCall</span>'
     f'</div>'
     f'<span style="font-family:{MONO};font-size:12px;color:#8b9092;text-align:right;line-height:1.7;">'
     f'Window&nbsp;{win_str}<br>'
