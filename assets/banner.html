@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>OrbitCall Banner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #0b6a72;
+    font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  .stage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vw;
+    position: relative;
+    left: -25px;
+    top: 50px;
+  }
+
+  .wordmark {
+    font-size: 8vw;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.15vw;
+    line-height: 1;
+  }
+
+  .tagline {
+    font-size: 2.8vw;
+    font-weight: 400;
+    color: #a8cdd1;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .stats {
+    display: flex;
+    align-items: flex-start;
+    gap: 4vw;
+    margin-top: 0.4vw;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2vw;
+  }
+
+  .stat-number {
+    font-size: 3.4vw;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 1.4vw;
+    font-weight: 400;
+    color: #a8cdd1;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="content">
+    <div class="wordmark">OrbitCall</div>
+    <div class="tagline">Which satellite contacts were lost, and why</div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">1,267</span>
+        <span class="stat-label">passes</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">280</span>
+        <span class="stat-label">scheduled</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">987</span>
+        <span class="stat-label">dropped</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
