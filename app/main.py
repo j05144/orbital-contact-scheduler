@@ -248,11 +248,11 @@ MONO = "ui-monospace,SFMono-Regular,Consolas,monospace"
 SVG_MARK = (
     '<svg width="34" height="34" viewBox="0 0 28 28" style="flex-shrink:0;">'
     '<rect width="28" height="28" fill="#0b6a72"/>'
-    '<rect x="3" y="13" width="22" height="1.5" fill="#fff" opacity="0.35"/>'
-    '<rect x="3" y="8" width="10" height="7" fill="#fff"/>'
-    '<rect x="10" y="8" width="10" height="7" fill="#fff" opacity="0.35"/>'
-    '<rect x="10" y="8" width="10" height="7" fill="none" stroke="#fff" stroke-width="1.5"/>'
-    '<rect x="13" y="6" width="2" height="11" fill="#fff"/>'
+    '<rect x="4.25" y="13.25" width="20.75" height="1.5" fill="#fff" opacity="0.35"/>'
+    '<rect x="4.25" y="10.5" width="10" height="7" fill="#fff"/>'
+    '<rect x="11.25" y="10.5" width="10" height="7" fill="#fff" opacity="0.35"/>'
+    '<rect x="11.25" y="10.5" width="10" height="7" fill="none" stroke="#fff" stroke-width="1.5"/>'
+    '<rect x="14.25" y="8.5" width="2" height="11" fill="#fff"/>'
     '</svg>'
 )
 st.markdown(
