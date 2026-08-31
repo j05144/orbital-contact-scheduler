@@ -187,12 +187,8 @@ handles narration only.
 
 **August — Advance Space Exploration with AI**
 
-This is an example of the usage of AI in the process of satellite
-mission control. It uses a deterministic scheduler for time-sensitive
-resource management and a language model to relieve the operator from
-the need to read the drop record structure and to summarize the
-operations performed — without the model being in the critical
-decision path.
+OrbitCall uses AI in satellite mission control. A deterministic scheduler handles the time-sensitive resource management. A language model saves the operator from reading 987 rows of drop data and writes the run summary. The model is never in the critical decision path.
+This is the shift the challenge asks for. 987 rows of raw drop data become 15 ranked items with a recommended action on each.
 
 ---
 
